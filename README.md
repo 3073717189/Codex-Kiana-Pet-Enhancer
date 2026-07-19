@@ -4,7 +4,9 @@
 
 > 本项目与 OpenAI、米哈游及 HoYoverse 无隶属、授权或背书关系。
 
-[下载最新版本](https://github.com/3073717189/Codex-Kiana-Pet-Enhancer/releases/latest)
+[下载最新版本](https://github.com/3073717189/Codex-Kiana-Pet-Enhancer/releases/latest) · [安装、使用与卸载图文教程](./docs/INSTALLATION.md)
+
+> 操作顺序请以图文教程为准。公开视频经过 AI 辅助剪辑，部分等待和操作画面有所压缩或省略。
 
 ## 功能
 
@@ -43,6 +45,8 @@
 2. 使用桌面或开始菜单中的“卸载 Codex 琪亚娜桌宠”，也可以运行压缩包中的卸载文件。
 3. 如果安装前已有同名桌宠，卸载器会恢复原文件。
 4. 如果安装后手动修改过桌宠文件，卸载器会保留文件，避免误删。
+
+如果在 Codex 运行时启动卸载器，它只会显示保护提示并中止；关闭 Codex 后必须重新运行一次。公开视频结尾展示的是该保护提示，不代表卸载已经完成。完整说明见[图文教程](./docs/INSTALLATION.md)。
 
 ## 校验下载
 

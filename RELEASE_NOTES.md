@@ -37,4 +37,6 @@ Release 同时附带 `.zip.sha256.txt` 校验文件。
 - 不需要管理员权限、Git、预装 Node.js 或 PowerShell 7
 - 非官方个人同人项目，免费提供；琪亚娜图集仅供个人非商业同人使用
 
-安装与故障说明见仓库 [README](https://github.com/3073717189/Codex-Kiana-Pet-Enhancer#readme)，安全边界见 [SECURITY.md](https://github.com/3073717189/Codex-Kiana-Pet-Enhancer/blob/main/SECURITY.md)，素材与权利声明见 [ASSETS.md](https://github.com/3073717189/Codex-Kiana-Pet-Enhancer/blob/main/ASSETS.md)。
+完整操作请优先查看[安装、使用与卸载图文教程](https://github.com/3073717189/Codex-Kiana-Pet-Enhancer/blob/main/docs/INSTALLATION.md)。视频中的卸载片段只展示运行中卸载被阻止的保护提示，不代表卸载完成。
+
+项目概览见仓库 [README](https://github.com/3073717189/Codex-Kiana-Pet-Enhancer#readme)，安全边界见 [SECURITY.md](https://github.com/3073717189/Codex-Kiana-Pet-Enhancer/blob/main/SECURITY.md)，素材与权利声明见 [ASSETS.md](https://github.com/3073717189/Codex-Kiana-Pet-Enhancer/blob/main/ASSETS.md)。
