@@ -1,0 +1,57 @@
+﻿Codex 琪亚娜增强桌宠 v1.0.0（Windows x64）
+
+下载与校验：
+- 官方发布页：https://github.com/3073717189/Codex-Kiana-Pet-Enhancer/releases/latest
+- Release 会同时提供 ZIP 和 .sha256.txt。
+- 可使用 PowerShell 的 Get-FileHash <ZIP路径> -Algorithm SHA256 核对哈希。
+
+首次安装：
+1. 完整解压 ZIP，不能在压缩包预览界面里直接运行。
+2. 完全退出所有 Codex 窗口。
+3. 双击“安装 Codex 琪亚娜增强桌宠.cmd”。
+4. 安装器会校验并复制文件，但不会修改 Codex 配置，也不会自动启动应用或选择桌宠。
+5. 正常打开官方 Codex，在“设置 > Pets”中刷新自定义桌宠并手动选择“时砾逐光”。
+6. 完全退出 Codex。
+7. 以后使用桌面或开始菜单里的“Codex 琪亚娜桌宠”启动。
+
+以后启动：
+- 使用桌面或开始菜单里的“Codex 琪亚娜桌宠”，才能加载增强动作。
+- 普通 Codex 快捷方式仍可使用，但不会加载增强动作。
+- 安装器不会改写 .codex\config.toml，也不会自动切换当前桌宠。
+
+主要功能：
+- Codex 工作时自动奔跑，多任务状态会合并判断。
+- 鼠标视线跟随；拖动时保留 Codex 原生拖拽动作。
+- 待机随机彩蛋，等待、审核和失败状态使用对应动画。
+- 失败动画减速播放并停在末帧，避免突兀循环。
+- 只增强桌宠，不改变 Codex 背景、输入框、图标或其他界面样式。
+
+卸载：
+1. 先完全退出所有 Codex 窗口；卸载器不会自动关闭正在运行的 Codex。
+2. 使用桌面/开始菜单的“卸载 Codex 琪亚娜桌宠”，或运行压缩包里的卸载文件。
+3. 如果安装前已有同名桌宠，卸载时会恢复原文件。
+4. 如果安装后手动改过桌宠文件，卸载器会保留它，避免误删。
+
+系统要求：
+- Windows 10/11 x64。
+- 微软商店安装的官方 Codex，且至少正常启动过一次。
+- 不需要管理员权限、Git、预装 Node.js 或 PowerShell 7。
+
+常见问题：
+- 提示 Codex 正在运行：从系统托盘和任务管理器确认 Codex 已完全退出，再重试。
+- Pets 列表暂时没有“时砾逐光”：刷新自定义桌宠；仍未出现时重启一次普通 Codex。
+- Windows 显示信誉提示：安装器暂未使用商业代码签名，请只从上述 GitHub Releases 下载并核对 SHA-256。
+- Codex 更新后动作失效：先从最新 Release 重新安装；仍有问题时提交脱敏日志。
+
+工作原理与隐私边界：
+- 通过仅监听 127.0.0.1 的 Chromium DevTools Protocol 会话增强官方 Codex。
+- 不修改 WindowsApps、app.asar、应用签名或 Codex 聊天/项目数据。
+- Chromium 调试端口不验证同一 Windows 用户下的本地进程，运行增强版时请勿同时运行不可信程序。
+- 发布包不含聊天、项目名、用户名或作者电脑上的其他个人内容。
+
+许可证与素材：
+- 软件代码使用 MIT License，详见 LICENSE。
+- 上游 Codex Dream Skin、Node.js 及其他第三方说明见 THIRD_PARTY_NOTICES.md。
+- 琪亚娜桌宠图集不属于 MIT 软件许可，仅供个人非商业同人使用，详见 ASSETS.md。
+- 安全边界与漏洞报告方式见 SECURITY.md。
+- 本项目为非官方同人作品，与 OpenAI、米哈游及 HoYoverse 无隶属、授权或背书关系。

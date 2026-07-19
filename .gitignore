@@ -1,0 +1,40 @@
+# Release output and downloaded runtimes
+/release/
+/dist/
+/artifacts/
+/node-download/
+*.zip
+*.zip.sha256.txt
+*.sha256.txt
+node.exe
+
+# Private working material
+/scratch/
+/design/
+/video/
+/captures/
+/screenshots/
+/generated_images/
+/backups/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+*.swp
+*.dmp
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+
+# Tooling and operating system files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
