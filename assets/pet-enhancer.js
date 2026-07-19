@@ -1,5 +1,5 @@
 (() => {
-  const VERSION = "1.0.0";
+  const VERSION = "1.0.1";
   const BRIDGE_STATE_KEY = "__CODEX_KIANA_PET_ENHANCER_STATE__";
   const OVERLAY_STATE_KEY = "__CODEX_DREAM_PET_OVERLAY_STATE__";
   const OVERLAY_STYLE_ID = "codex-dream-pet-overlay-style";

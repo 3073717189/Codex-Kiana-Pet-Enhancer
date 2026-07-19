@@ -1,4 +1,4 @@
-﻿Codex 琪亚娜增强桌宠 v1.0.0（Windows x64）
+﻿Codex 琪亚娜增强桌宠 v1.0.1（Windows x64）
 
 下载与校验：
 - 官方发布页：https://github.com/3073717189/Codex-Kiana-Pet-Enhancer/releases/latest

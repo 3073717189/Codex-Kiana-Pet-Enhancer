@@ -28,7 +28,7 @@
 
 ## 安装
 
-1. 从 [Releases](https://github.com/3073717189/Codex-Kiana-Pet-Enhancer/releases/latest) 下载 `Codex-Kiana-Pet-Enhancer-v1.0.0-win-x64.zip`。
+1. 从 [Releases](https://github.com/3073717189/Codex-Kiana-Pet-Enhancer/releases/latest) 下载 `Codex-Kiana-Pet-Enhancer-v1.0.1-win-x64.zip`。
 2. 完整解压 ZIP，不要在压缩包预览界面中直接运行。
 3. 完全退出所有 Codex 窗口。
 4. 双击 `安装 Codex 琪亚娜增强桌宠.cmd`。
@@ -53,7 +53,7 @@
 Release 页面会同时提供 `.sha256.txt`。可以在 PowerShell 中运行：
 
 ```powershell
-Get-FileHash '.\Codex-Kiana-Pet-Enhancer-v1.0.0-win-x64.zip' -Algorithm SHA256
+Get-FileHash '.\Codex-Kiana-Pet-Enhancer-v1.0.1-win-x64.zip' -Algorithm SHA256
 ```
 
 结果应与 Release 页面公布的 SHA-256 完全一致。

@@ -1,6 +1,12 @@
-# Codex 琪亚娜增强桌宠 v1.0.0
+# Codex 琪亚娜增强桌宠 v1.0.1
 
-首个公开测试版。它是独立的纯桌宠增强包，不安装完整主题，也不修改 Codex 的背景、输入框、图标、`WindowsApps`、`app.asar` 或 `.codex\config.toml`。
+这是针对视线跟随素材的补丁版本。它仍是独立的纯桌宠增强包，不安装完整主题，也不修改 Codex 的背景、输入框、图标、`WindowsApps`、`app.asar` 或 `.codex\config.toml`。
+
+## 本次修复
+
+- 修复看向右下方时，`112.5°`、`135°`、`157.5°` 三个方向错误显示为左下方的问题
+- 重新整理视线跟随图集第 9 行，使相邻方向的动作衔接保持连续
+- 安装、启动、卸载及其他动画逻辑均未改动
 
 ## 功能
 
@@ -12,7 +18,7 @@
 
 ## 安装
 
-1. 下载并完整解压 `Codex-Kiana-Pet-Enhancer-v1.0.0-win-x64.zip`。
+1. 下载并完整解压 `Codex-Kiana-Pet-Enhancer-v1.0.1-win-x64.zip`。
 2. 完全退出所有 Codex 窗口。
 3. 双击 `安装 Codex 琪亚娜增强桌宠.cmd`。
 4. 正常打开官方 Codex，在 `设置 > Pets` 中刷新并手动选择“时砾逐光”。
@@ -25,7 +31,7 @@
 ZIP SHA-256：
 
 ```text
-F063902F76DE9A95B23115A64347C41D20BCA735B8DB8CF77499E38E6EA74F86
+3D86EBD112419CFF0511943DC30B10199A29CDCFE20400AAE53EAB34CA8ABF9A
 ```
 
 Release 同时附带 `.zip.sha256.txt` 校验文件。
