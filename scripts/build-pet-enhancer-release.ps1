@@ -30,7 +30,7 @@ if (-not $SkipTests) {
 }
 
 $tempRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("codex-kiana-pet-release-" + [guid]::NewGuid().ToString('N'))
-$packageName = "Codex-琪亚娜增强桌宠-v$version-win-$Architecture"
+$packageName = "Codex-Kiana-Pet-Enhancer-v$version-win-$Architecture"
 $clientRoot = Join-Path $tempRoot $packageName
 $payloadRoot = Join-Path $clientRoot 'payload'
 $downloadRoot = Join-Path $tempRoot 'node-download'
