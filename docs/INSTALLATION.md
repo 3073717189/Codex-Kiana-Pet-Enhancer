@@ -16,12 +16,12 @@
 ## 二、下载与校验
 
 1. 打开 [GitHub Releases](https://github.com/3073717189/Codex-Kiana-Pet-Enhancer/releases/latest)。
-2. 下载 `Codex-Kiana-Pet-Enhancer-v1.0.0-win-x64.zip`。
+2. 下载 `Codex-Kiana-Pet-Enhancer-v1.0.1-win-x64.zip`。
 3. 建议同时下载对应的 `.zip.sha256.txt`。
 4. 在 ZIP 所在目录打开 PowerShell，运行：
 
 ```powershell
-Get-FileHash '.\Codex-Kiana-Pet-Enhancer-v1.0.0-win-x64.zip' -Algorithm SHA256
+Get-FileHash '.\Codex-Kiana-Pet-Enhancer-v1.0.1-win-x64.zip' -Algorithm SHA256
 ```
 
 输出的哈希应与 `.sha256.txt` 完全一致。

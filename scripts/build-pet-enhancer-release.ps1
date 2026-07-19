@@ -17,6 +17,21 @@ $version = (Get-Content -LiteralPath (Join-Path $windowsRoot 'PET_ENHANCER_VERSI
 if ($version -notmatch '^\d+\.\d+\.\d+$') { throw "Invalid Pet Enhancer version: $version" }
 if ($NodeVersion -notmatch '^\d+\.\d+\.\d+$') { throw "Invalid Node.js version: $NodeVersion" }
 
+$runtimeVersionSources = [ordered]@{
+  'assets\pet-enhancer.js' = 'const VERSION = "(?<version>\d+\.\d+\.\d+)";'
+  'scripts\pet-injector.mjs' = 'const PET_ENHANCER_VERSION = "(?<version>\d+\.\d+\.\d+)";'
+}
+foreach ($relativePath in $runtimeVersionSources.Keys) {
+  $sourcePath = Join-Path $windowsRoot $relativePath
+  $sourceText = Get-Content -LiteralPath $sourcePath -Raw
+  if ($sourceText -notmatch $runtimeVersionSources[$relativePath]) {
+    throw "Runtime version declaration was not found: $relativePath"
+  }
+  if ($matches.version -ne $version) {
+    throw "Runtime version mismatch in ${relativePath}: $($matches.version) != $version"
+  }
+}
+
 if (-not $SkipTests) {
   & powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass `
     -File (Join-Path $windowsRoot 'tests\run-tests.ps1')
