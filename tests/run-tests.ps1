@@ -26,8 +26,11 @@ try {
     'assets\pet-enhancer.js',
     'assets\pets\time-runner-kiana\pet.json',
     'assets\pets\time-runner-kiana\spritesheet.webp',
+    'assets\pets\time-runner-kiana\README.md',
+    'assets\pets\time-runner-kiana\LICENSE',
     'scripts\pet-common.ps1',
     'scripts\pet-injector.mjs',
+    'scripts\build-native-pet-package.ps1',
     'scripts\start-pet-enhancer.ps1',
     'scripts\restore-pet-enhancer.ps1',
     'scripts\verify-pet-enhancer.ps1'
@@ -168,6 +171,37 @@ try {
   $expectedDisplayName = -join @([char]0x65F6, [char]0x783E, [char]0x9010, [char]0x5149)
   if ($installedPet.displayName -cne $expectedDisplayName -or [int]$installedPet.spriteVersionNumber -ne 2) {
     throw 'Installed pet manifest was corrupted or is not v2.'
+  }
+  foreach ($installedDocument in @('README.md', 'LICENSE')) {
+    if (-not (Test-Path -LiteralPath (Join-Path $petHome "pets\time-runner-kiana\$installedDocument") -PathType Leaf)) {
+      throw "Installed native pet is missing $installedDocument."
+    }
+  }
+
+  $nativeRelease = Join-Path $TemporaryRoot 'native-release'
+  $nativeArchive = @(
+    & $PowerShell51 -NoLogo -NoProfile -ExecutionPolicy Bypass `
+      -File (Join-Path $Scripts 'build-native-pet-package.ps1') `
+      -OutputDirectory $nativeRelease
+  ) | Select-Object -Last 1
+  Assert-LastExitCode -Message 'Native CodexPet package build failed.'
+  if (-not (Test-Path -LiteralPath $nativeArchive -PathType Leaf)) {
+    throw 'Native CodexPet package was not created.'
+  }
+
+  Add-Type -AssemblyName System.IO.Compression.FileSystem
+  $nativeZip = [System.IO.Compression.ZipFile]::OpenRead($nativeArchive)
+  try {
+    $nativeEntries = @($nativeZip.Entries | ForEach-Object { $_.FullName })
+  } finally {
+    $nativeZip.Dispose()
+  }
+  if ($nativeEntries.Count -ne 4 -or
+    $nativeEntries -notcontains 'pet.json' -or
+    $nativeEntries -notcontains 'spritesheet.webp' -or
+    $nativeEntries -notcontains 'README.md' -or
+    $nativeEntries -notcontains 'LICENSE') {
+    throw "Native CodexPet package contains unexpected entries: $($nativeEntries -join ', ')"
   }
 
   & $PowerShell51 -NoLogo -NoProfile -ExecutionPolicy Bypass `

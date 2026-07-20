@@ -1,7 +1,7 @@
 {
   "id": "time-runner-kiana",
   "displayName": "时砾逐光",
-  "description": "琪亚娜非官方同人桌宠，支持工作奔跑、视线跟随与待机彩蛋。",
+  "description": "琪亚娜非官方同人 V2 桌宠，包含九组状态动画与十六方向视线跟随。",
   "spriteVersionNumber": 2,
   "spritesheetPath": "spritesheet.webp"
 }

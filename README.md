@@ -1,14 +1,30 @@
 # Codex 琪亚娜增强桌宠
 
-为 Windows 版 Codex 制作的非官方琪亚娜同人桌宠增强包。它只增强桌宠动作，不修改 Codex 背景、输入框、图标或其他界面样式，也不会替换 `WindowsApps`、`app.asar` 或应用签名。
+非官方琪亚娜同人 Codex 桌宠项目，同时提供跨平台原生桌宠包和 Windows 增强版。Windows 增强版只增强桌宠动作，不修改 Codex 背景、输入框、图标或其他界面样式，也不会替换 `WindowsApps`、`app.asar` 或应用签名。
 
 > 本项目与 OpenAI、米哈游及 HoYoverse 无隶属、授权或背书关系。
 
-[下载最新版本](https://github.com/3073717189/Codex-Kiana-Pet-Enhancer/releases/latest) · [安装、使用与卸载图文教程](./docs/INSTALLATION.md)
+[安装原生桌宠（Windows/macOS）](https://codexpet.xyz/zh/pets/community/time-runner-kiana/) · [下载 Windows 增强版](https://github.com/3073717189/Codex-Kiana-Pet-Enhancer/releases/latest) · [增强版图文教程](./docs/INSTALLATION.md)
 
-> 操作顺序请以图文教程为准。公开视频经过 AI 辅助剪辑，部分等待和操作画面有所压缩或省略。
+> Windows 增强版的操作顺序请以图文教程为准。公开视频经过 AI 辅助剪辑，部分等待和操作画面有所压缩或省略。
 
-## 功能
+## 两种使用方式
+
+### 原生桌宠
+
+面向支持 Codex V2 自定义桌宠的 Windows 和 macOS 客户端，包含 Codex 原生的 9 组状态动画与十六方向视线跟随，不包含自动奔跑、待机随机彩蛋等 Windows 增强逻辑。本项目已完成 Windows 实测，macOS 端依赖 CodexPet/兼容客户端，尚未由本项目作者实机验证。
+
+```powershell
+npx codexpetxyz install time-runner-kiana
+```
+
+也可以在 [CodexPet 公开页面](https://codexpet.xyz/zh/pets/community/time-runner-kiana/) 下载 ZIP 或通过 CodexPet 小窝安装。安装后在 `Codex 设置 > 外观 > 宠物` 中启用“时砾逐光”。
+
+### Windows 增强版
+
+在原生桌宠素材上增加工作状态自动奔跑、待机随机彩蛋和更完整的交互状态控制。使用 GitHub Releases 中的 Windows 安装包，并从专用快捷方式启动。
+
+## Windows 增强版功能
 
 - Codex 工作时自动切换奔跑动作，多任务状态会合并判断
 - 鼠标视线跟随
@@ -19,14 +35,14 @@
 - 完整安装与卸载，已有同名桌宠会先备份
 - 只增强桌宠，不启用或安装 Codex 主题皮肤
 
-## 系统要求
+## Windows 增强版系统要求
 
 - Windows 10/11 x64
 - 微软商店安装的官方 Codex
 - 不需要管理员权限
 - 不需要预装 Git、Node.js 或 PowerShell 7
 
-## 安装
+## Windows 增强版安装
 
 1. 从 [Releases](https://github.com/3073717189/Codex-Kiana-Pet-Enhancer/releases/latest) 下载 `Codex-Kiana-Pet-Enhancer-v1.0.1-win-x64.zip`。
 2. 完整解压 ZIP，不要在压缩包预览界面中直接运行。
@@ -86,8 +102,11 @@ node --check .\scripts\pet-injector.mjs
 node --check .\assets\pet-enhancer.js
 node .\tests\pet-enhancer.test.mjs
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tests\run-tests.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\build-native-pet-package.ps1
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\build-pet-enhancer-release.ps1
 ```
+
+原生包构建产物位于 `release/native/`。ZIP 根目录包含 Codex 运行必需的 `pet.json`、`spritesheet.webp`，以及原生包专用的 `README.md`、`LICENSE`，并同时生成 SHA-256 校验文件。
 
 不要把构建后的 ZIP、Node.js 二进制、测试截图、生成中间素材或本机备份提交到 Git。
 
