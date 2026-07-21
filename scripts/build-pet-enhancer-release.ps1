@@ -76,6 +76,8 @@ try {
     'assets\pet-enhancer.js',
     'assets\pets\time-runner-kiana\pet.json',
     'assets\pets\time-runner-kiana\spritesheet.webp',
+    'assets\pets\time-runner-kiana\README.md',
+    'assets\pets\time-runner-kiana\LICENSE',
     'launcher\PetEnhancerLauncher.cs',
     'scripts\build-pet-enhancer-launcher.ps1',
     'scripts\install-time-runner-pet.ps1',

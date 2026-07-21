@@ -16,12 +16,12 @@
 ## 二、下载与校验
 
 1. 打开 [GitHub Releases](https://github.com/3073717189/Codex-Kiana-Pet-Enhancer/releases/latest)。
-2. 下载 `Codex-Kiana-Pet-Enhancer-v1.0.1-win-x64.zip`。
+2. 下载 `Codex-Kiana-Pet-Enhancer-v1.0.2-win-x64.zip`。
 3. 建议同时下载对应的 `.zip.sha256.txt`。
 4. 在 ZIP 所在目录打开 PowerShell，运行：
 
 ```powershell
-Get-FileHash '.\Codex-Kiana-Pet-Enhancer-v1.0.1-win-x64.zip' -Algorithm SHA256
+Get-FileHash '.\Codex-Kiana-Pet-Enhancer-v1.0.2-win-x64.zip' -Algorithm SHA256
 ```
 
 输出的哈希应与 `.sha256.txt` 完全一致。
@@ -38,6 +38,8 @@ Get-FileHash '.\Codex-Kiana-Pet-Enhancer-v1.0.1-win-x64.zip' -Algorithm SHA256
 8. 此后使用桌面或开始菜单中的“Codex 琪亚娜桌宠”启动。
 
 如果安装器提示 Codex 正在运行，本次安装没有继续。请完全退出 Codex 后重新运行安装器。
+
+已有 v1.0.0 或 v1.0.1 时无需先卸载；完全退出 Codex 后直接运行新版安装器即可覆盖升级。
 
 ## 四、以后怎么启动
 
@@ -97,7 +99,7 @@ Get-FileHash '.\Codex-Kiana-Pet-Enhancer-v1.0.1-win-x64.zip' -Algorithm SHA256
 
 ### Codex 更新后增强动作失效
 
-先查看 [最新 Release](https://github.com/3073717189/Codex-Kiana-Pet-Enhancer/releases/latest) 是否已有兼容版本。重新安装后仍有问题，请提交脱敏后的错误信息。
+先查看 [最新 Release](https://github.com/3073717189/Codex-Kiana-Pet-Enhancer/releases/latest) 是否已有兼容版本。v1.0.2 起，更新遗留的首选调试端口被占用时会自动选择新的本机端口。重新安装后仍有问题，请提交脱敏后的错误信息。
 
 ## 七、反馈问题时请提供
 
