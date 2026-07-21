@@ -138,6 +138,39 @@ try {
     throw 'Atomic state replacement left temporary or backup files behind.'
   }
 
+  $originalGetCodexProcesses = (Get-Item Function:\Get-DreamSkinCodexProcesses).ScriptBlock
+  try {
+    Set-Item Function:\Get-DreamSkinCodexProcesses -Value {
+      param([Parameter(Mandatory = $true)][object]$Codex)
+      return @([pscustomobject]@{ ProcessId = 4242 })
+    }
+    $activeStateWasBlocked = $false
+    try {
+      [void](Archive-DreamSkinInactiveRuntimeState -Path $statePath)
+    } catch {
+      $activeStateWasBlocked = $true
+    }
+    if (-not $activeStateWasBlocked -or -not (Test-Path -LiteralPath $statePath -PathType Leaf)) {
+      throw 'Active saved Codex state was not preserved.'
+    }
+  } finally {
+    Set-Item Function:\Get-DreamSkinCodexProcesses -Value $originalGetCodexProcesses
+  }
+
+  $validCodexExe = $state.codexExe
+  $state.codexExe = 'C:\Invalid\ChatGPT.exe'
+  Write-DreamSkinState -Path $statePath -State $state
+  $invalidIdentityWasBlocked = $false
+  try {
+    [void](Archive-DreamSkinInactiveRuntimeState -Path $statePath)
+  } catch {
+    $invalidIdentityWasBlocked = $true
+  }
+  if (-not $invalidIdentityWasBlocked -or -not (Test-Path -LiteralPath $statePath -PathType Leaf)) {
+    throw 'Invalid saved Codex identity was not preserved for inspection.'
+  }
+  $state.codexExe = $validCodexExe
+
   $preferredPort = $null
   foreach ($candidate in 45000..64000) {
     if ((Test-DreamSkinPortAvailable -Port $candidate) -and
@@ -152,6 +185,22 @@ try {
   try {
     if (Test-DreamSkinPortAvailable -Port $preferredPort) {
       throw 'Occupied loopback port was incorrectly reported as available.'
+    }
+    $state.port = $preferredPort
+    $state.injectorPid = $PID
+    Write-DreamSkinState -Path $statePath -State $state
+    $archivedStatePath = Archive-DreamSkinInactiveRuntimeState -Path $statePath
+    if (Test-Path -LiteralPath $statePath -PathType Leaf) {
+      throw 'Inactive Pet Enhancer state was not archived.'
+    }
+    if (-not $archivedStatePath -or -not (Test-Path -LiteralPath $archivedStatePath -PathType Leaf)) {
+      throw 'Inactive Pet Enhancer state archive was not created.'
+    }
+    if (-not (Get-Process -Id $PID -ErrorAction SilentlyContinue)) {
+      throw 'A reused injector PID caused the current process to be stopped.'
+    }
+    if (Test-DreamSkinPortAvailable -Port $preferredPort) {
+      throw 'Archiving stale state unexpectedly stopped an unrelated port listener.'
     }
     $selectedPort = Select-DreamSkinPort -PreferredPort $preferredPort
     if ($selectedPort -ne ($preferredPort + 1)) {

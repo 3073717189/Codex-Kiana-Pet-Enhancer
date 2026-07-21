@@ -1,4 +1,4 @@
-﻿Codex 琪亚娜增强桌宠 v1.0.2（Windows x64）
+﻿Codex 琪亚娜增强桌宠 v1.0.3（Windows x64）
 
 下载与校验：
 - 官方发布页：https://github.com/3073717189/Codex-Kiana-Pet-Enhancer/releases/latest
@@ -15,7 +15,7 @@
 7. 以后使用桌面或开始菜单里的“Codex 琪亚娜桌宠”启动。
 
 覆盖升级：
-- 已安装 v1.0.0 或 v1.0.1 时无需先卸载。
+- 已安装 v1.0.0、v1.0.1 或 v1.0.2 时无需先卸载。
 - 完全退出 Codex，直接运行新版安装器即可。
 
 以后启动：
@@ -45,7 +45,7 @@
 - 提示 Codex 正在运行：从系统托盘和任务管理器确认 Codex 已完全退出，再重试。
 - Pets 列表暂时没有“时砾逐光”：刷新自定义桌宠；仍未出现时重启一次普通 Codex。
 - Windows 显示信誉提示：安装器暂未使用商业代码签名，请只从上述 GitHub Releases 下载并核对 SHA-256。
-- Codex 更新后动作失效：先从最新 Release 覆盖安装；v1.0.2 起会自动避开更新后残留占用的首选调试端口。
+- Codex 更新后动作失效：先从最新 Release 覆盖安装；新版会避开残留端口，并归档确认失效的旧运行状态。
 
 工作原理与隐私边界：
 - 通过仅监听 127.0.0.1 的 Chromium DevTools Protocol 会话增强官方 Codex。
