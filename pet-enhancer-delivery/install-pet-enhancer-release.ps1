@@ -298,12 +298,16 @@ try {
   }
 
   $existingRestore = Join-Path $installRoot 'scripts\restore-pet-enhancer.ps1'
-  if (Test-Path -LiteralPath (Join-Path $stateRoot 'state.json')) {
-    if (-not (Test-Path -LiteralPath $existingRestore -PathType Leaf)) {
-      throw '检测到旧桌宠运行状态，但旧版恢复脚本缺失。请先关闭 Codex 后重试。'
+  $existingStatePath = Join-Path $stateRoot 'state.json'
+  if (Test-Path -LiteralPath $existingStatePath) {
+    if (Test-Path -LiteralPath $existingRestore -PathType Leaf) {
+      & $existingRestore -NoRelaunch -ForceRestart
+    } else {
+      $archivedState = Archive-DreamSkinInactiveRuntimeState -Path $existingStatePath
+      Write-Warning "已归档失效的旧桌宠运行状态：$archivedState"
     }
-    & $existingRestore -NoRelaunch -ForceRestart
-  } elseif ($codexWasRunning) {
+  }
+  if ($codexWasRunning) {
     foreach ($codex in $registered) {
       if ((Get-DreamSkinCodexProcesses -Codex $codex).Count -gt 0) {
         Stop-DreamSkinCodex -Codex $codex -AllowForce

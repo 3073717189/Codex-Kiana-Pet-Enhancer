@@ -44,7 +44,7 @@ npx codexpetxyz install time-runner-kiana
 
 ## Windows 增强版安装
 
-1. 从 [Releases](https://github.com/3073717189/Codex-Kiana-Pet-Enhancer/releases/latest) 下载 `Codex-Kiana-Pet-Enhancer-v1.0.2-win-x64.zip`。
+1. 从 [Releases](https://github.com/3073717189/Codex-Kiana-Pet-Enhancer/releases/latest) 下载 `Codex-Kiana-Pet-Enhancer-v1.0.3-win-x64.zip`。
 2. 完整解压 ZIP，不要在压缩包预览界面中直接运行。
 3. 完全退出所有 Codex 窗口。
 4. 双击 `安装 Codex 琪亚娜增强桌宠.cmd`。
@@ -53,7 +53,7 @@ npx codexpetxyz install time-runner-kiana
 7. 完全退出 Codex。
 8. 此后使用桌面或开始菜单中的“Codex 琪亚娜桌宠”启动。
 
-已有 v1.0.0 或 v1.0.1 时无需先卸载；完全退出 Codex 后直接运行新版安装器即可覆盖升级。
+已有 v1.0.0、v1.0.1 或 v1.0.2 时无需先卸载；完全退出 Codex 后直接运行新版安装器即可覆盖升级。
 
 普通 Codex 快捷方式仍可使用，但通过它启动时不会加载增强动作。
 
@@ -71,7 +71,7 @@ npx codexpetxyz install time-runner-kiana
 Release 页面会同时提供 `.sha256.txt`。可以在 PowerShell 中运行：
 
 ```powershell
-Get-FileHash '.\Codex-Kiana-Pet-Enhancer-v1.0.2-win-x64.zip' -Algorithm SHA256
+Get-FileHash '.\Codex-Kiana-Pet-Enhancer-v1.0.3-win-x64.zip' -Algorithm SHA256
 ```
 
 结果应与 Release 页面公布的 SHA-256 完全一致。

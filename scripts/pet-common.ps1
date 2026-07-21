@@ -541,6 +541,35 @@ function Archive-DreamSkinStateFile {
   return $archivePath
 }
 
+function Archive-DreamSkinInactiveRuntimeState {
+  param([Parameter(Mandatory = $true)][string]$Path)
+  $state = Read-DreamSkinState -Path $Path
+  if ($null -eq $state) { return $null }
+
+  $savedCodex = Get-DreamSkinCodexStatePathCandidate -State $state
+  if ($null -eq $savedCodex) {
+    throw 'The saved Pet Enhancer Codex identity cannot be validated; state was preserved for inspection.'
+  }
+  $savedProcesses = @(Get-DreamSkinCodexProcesses -Codex $savedCodex)
+  $savedOwnsPort = [bool]($state.port -and
+    (Test-DreamSkinCodexPortOwner -Port ([int]$state.port) -Codex $savedCodex))
+  if ($savedProcesses.Count -gt 0 -or $savedOwnsPort) {
+    throw 'The saved Pet Enhancer Codex session is still active; state was preserved.'
+  }
+
+  $recordedInjectorStopped = Stop-DreamSkinRecordedInjector -State $state
+  if (-not $recordedInjectorStopped) {
+    Write-Warning 'The recorded injector PID belongs to another process; it was left untouched.'
+  }
+  $savedProcesses = @(Get-DreamSkinCodexProcesses -Codex $savedCodex)
+  $savedOwnsPort = [bool]($state.port -and
+    (Test-DreamSkinCodexPortOwner -Port ([int]$state.port) -Codex $savedCodex))
+  if ($savedProcesses.Count -gt 0 -or $savedOwnsPort) {
+    throw 'The saved Pet Enhancer Codex session became active during cleanup; state was preserved.'
+  }
+  return Archive-DreamSkinStateFile -Path $Path
+}
+
 function Get-DreamSkinProcessStartedAt {
   param([int]$ProcessId)
   try {
