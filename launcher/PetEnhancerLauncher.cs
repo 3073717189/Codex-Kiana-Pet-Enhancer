@@ -61,20 +61,30 @@ namespace CodexKianaPet
         startInfo.UseShellExecute = false;
         startInfo.CreateNoWindow = true;
         startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+        startInfo.RedirectStandardOutput = true;
+        startInfo.RedirectStandardError = true;
 
         string standardOutput = string.Empty;
         string standardError = string.Empty;
         int exitCode;
-        using (Process process = Process.Start(startInfo))
+        using (Process process = new Process())
         {
+          process.StartInfo = startInfo;
+          if (!process.Start()) throw new InvalidOperationException("桌宠启动脚本未能启动。");
+          var standardOutputTask = process.StandardOutput.ReadToEndAsync();
+          var standardErrorTask = process.StandardError.ReadToEndAsync();
           process.WaitForExit();
+          standardOutput = standardOutputTask.Result;
+          standardError = standardErrorTask.Result;
           exitCode = process.ExitCode;
         }
         WriteLog(scriptPath, exitCode, standardOutput, standardError);
         if (exitCode != 0)
         {
+          string detail = !string.IsNullOrWhiteSpace(standardError) ? standardError : standardOutput;
           ShowError("桌宠启动失败，退出代码：" + exitCode.ToString(CultureInfo.InvariantCulture) +
-            "。\r\n\r\n请查看桌宠注入日志和启动器日志：\r\n" + GetLogPath());
+            "。\r\n\r\n" + TrimForDialog(detail) +
+            "\r\n\r\n详细日志：\r\n" + GetLogPath());
         }
         return exitCode;
       }

@@ -234,10 +234,21 @@ function Invoke-IsolatedPackageSmokeTest {
       throw '隔离测试未生成桌面和开始菜单快捷方式。'
     }
     $shell = New-Object -ComObject WScript.Shell
-    $resolvedShortcut = $shell.CreateShortcut($desktopShortcut)
-    if ([System.IO.Path]::GetFullPath($resolvedShortcut.TargetPath) -ine
-      [System.IO.Path]::GetFullPath($launcher)) {
-      throw '隔离测试生成的快捷方式没有指向增强桌宠启动器。'
+    foreach ($shortcutPath in @($desktopShortcut, $startMenuShortcut)) {
+      $resolvedShortcut = $shell.CreateShortcut($shortcutPath)
+      if ([System.IO.Path]::GetFullPath($resolvedShortcut.TargetPath) -ine
+        [System.IO.Path]::GetFullPath($launcher)) {
+        throw '隔离测试生成的快捷方式没有指向增强桌宠启动器。'
+      }
+      if ($resolvedShortcut.Arguments -match '(?i)(?:^|\s)--port(?:=|\s)') {
+        throw '隔离测试生成的默认启动快捷方式不应固定 CDP 端口。'
+      }
+    }
+    $uninstallShortcut = $shell.CreateShortcut(
+      (Join-Path $smokeDesktop '卸载 Codex 琪亚娜桌宠.lnk')
+    )
+    if ($uninstallShortcut.Arguments -match '(?i)(?:^|\s)-Port(?:=|\s)') {
+      throw '隔离测试生成的默认卸载快捷方式不应固定 CDP 端口。'
     }
   } finally {
     if (Test-Path -LiteralPath $smokeRoot) {

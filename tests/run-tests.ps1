@@ -138,6 +138,29 @@ try {
     throw 'Atomic state replacement left temporary or backup files behind.'
   }
 
+  $preferredPort = $null
+  foreach ($candidate in 45000..64000) {
+    if ((Test-DreamSkinPortAvailable -Port $candidate) -and
+      (Test-DreamSkinPortAvailable -Port ($candidate + 1))) {
+      $preferredPort = $candidate
+      break
+    }
+  }
+  if ($null -eq $preferredPort) { throw 'Could not find consecutive ports for fallback testing.' }
+  $occupiedPort = [System.Net.Sockets.TcpListener]::new([System.Net.IPAddress]::Loopback, $preferredPort)
+  $occupiedPort.Start()
+  try {
+    if (Test-DreamSkinPortAvailable -Port $preferredPort) {
+      throw 'Occupied loopback port was incorrectly reported as available.'
+    }
+    $selectedPort = Select-DreamSkinPort -PreferredPort $preferredPort
+    if ($selectedPort -ne ($preferredPort + 1)) {
+      throw "Port fallback selected $selectedPort instead of $($preferredPort + 1)."
+    }
+  } finally {
+    $occupiedPort.Stop()
+  }
+
   $node = Get-DreamSkinNodeRuntime
   & $node.Path --check (Join-Path $Scripts 'pet-injector.mjs')
   Assert-LastExitCode -Message 'pet-injector.mjs syntax validation failed.'
@@ -232,6 +255,46 @@ try {
   if ([System.IO.Path]::GetFullPath($shortcut.TargetPath) -ine
     [System.IO.Path]::GetFullPath($launcherPath)) {
     throw 'Generated shortcut points to the wrong launcher.'
+  }
+  if ($shortcut.Arguments -match '(?i)(?:^|\s)--port(?:=|\s)') {
+    throw 'Default launcher shortcut unexpectedly pins a CDP port.'
+  }
+  $uninstallShortcutPath = @(
+    Get-ChildItem -LiteralPath $desktop -Filter '*.lnk' -File |
+      Where-Object { $_.FullName -ine $shortcutPath } |
+      Select-Object -ExpandProperty FullName
+  )
+  if ($uninstallShortcutPath.Count -ne 1) {
+    throw 'Default shortcut set did not contain exactly one uninstall shortcut.'
+  }
+  $uninstallShortcut = $shell.CreateShortcut([string]$uninstallShortcutPath)
+  if ($uninstallShortcut.Arguments -match '(?i)(?:^|\s)-Port(?:=|\s)') {
+    throw 'Default uninstall shortcut unexpectedly pins a CDP port.'
+  }
+
+  $pinnedDesktop = Join-Path $TemporaryRoot 'desktop-pinned-port'
+  $pinnedStartMenu = Join-Path $TemporaryRoot 'start-menu-pinned-port'
+  & $PowerShell51 -NoLogo -NoProfile -ExecutionPolicy Bypass `
+    -File (Join-Path $Scripts 'new-pet-enhancer-shortcuts.ps1') `
+    -Port 9456 -OutputRoot $launcherRoot -DesktopFolder $pinnedDesktop `
+    -StartMenuFolder $pinnedStartMenu -IconSourcePath $PowerShell51 *> $null
+  Assert-LastExitCode -Message 'Explicit-port shortcut smoke test failed.'
+  $pinnedShortcutPath = Join-Path $pinnedDesktop ($launcherBaseName + '.lnk')
+  $pinnedShortcut = $shell.CreateShortcut([string]$pinnedShortcutPath)
+  if ($pinnedShortcut.Arguments -notmatch '(?i)(?:^|\s)--port\s+9456(?:$|\s)') {
+    throw 'Explicit launcher port was not preserved.'
+  }
+  $pinnedUninstallPath = @(
+    Get-ChildItem -LiteralPath $pinnedDesktop -Filter '*.lnk' -File |
+      Where-Object { $_.FullName -ine $pinnedShortcutPath } |
+      Select-Object -ExpandProperty FullName
+  )
+  if ($pinnedUninstallPath.Count -ne 1) {
+    throw 'Explicit-port shortcut set did not contain exactly one uninstall shortcut.'
+  }
+  $pinnedUninstall = $shell.CreateShortcut([string]$pinnedUninstallPath)
+  if ($pinnedUninstall.Arguments -notmatch '(?i)(?:^|\s)-Port\s+9456(?:$|\s)') {
+    throw 'Explicit uninstall port was not preserved.'
   }
 
   Write-Host 'PASS: pure-pet lifecycle, state safety, payload, animation, UTF-8 install, and launcher tests.'

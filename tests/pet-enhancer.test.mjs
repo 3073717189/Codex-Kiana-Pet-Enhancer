@@ -54,7 +54,7 @@ function mainFixture() {
 const main = mainFixture();
 const mainResult = vm.runInNewContext(source, main.context);
 assert.equal(mainResult.kind, "main");
-assert.equal(mainResult.version, "1.0.1");
+assert.equal(mainResult.version, "1.0.2");
 assert.equal(main.window.__CODEX_KIANA_PET_ENHANCER_STATE__.busyCount, 2);
 assert.equal(main.messages.at(-1).working, true);
 assert.equal(main.messages.at(-1).busyCount, 2);
@@ -143,7 +143,7 @@ function overlayFixture() {
 const overlay = overlayFixture();
 const overlayResult = vm.runInNewContext(source, overlay.context);
 assert.equal(overlayResult.kind, "avatar-overlay");
-assert.equal(overlayResult.version, "1.0.1");
+assert.equal(overlayResult.version, "1.0.2");
 overlay.setWallNow(120_000);
 overlay.tick(3_300);
 assert.equal(overlay.button.dataset.dreamPetMoving, "true");
